@@ -1,3 +1,14 @@
+# ESP-IDF build output directories
+build/
+
+# ESP-IDF generated configuration backup files
+sdkconfig.old
+
+# Python cache
+__pycache__/
+*.pyc
+
+#Venian al crear el .gitignore:
 # Prerequisites
 *.d
 

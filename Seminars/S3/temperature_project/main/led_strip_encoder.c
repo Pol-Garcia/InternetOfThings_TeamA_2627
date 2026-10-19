@@ -17,6 +17,7 @@ typedef struct {
     rmt_symbol_word_t reset_code;
 } rmt_led_strip_encoder_t;
 
+// Encodes the LED pixel data into RMT symbols and appends the required reset pulse after each frame.
 static size_t rmt_encode_led_strip(rmt_encoder_t *encoder, rmt_channel_handle_t channel, const void *primary_data, size_t data_size, rmt_encode_state_t *ret_state)
 {
     rmt_led_strip_encoder_t *led_encoder = __containerof(encoder, rmt_led_strip_encoder_t, base);
@@ -53,6 +54,7 @@ out:
     return encoded_symbols;
 }
 
+// Releases the internal RMT encoders and frees the LED strip encoder instance.
 static esp_err_t rmt_del_led_strip_encoder(rmt_encoder_t *encoder)
 {
     rmt_led_strip_encoder_t *led_encoder = __containerof(encoder, rmt_led_strip_encoder_t, base);
@@ -62,6 +64,7 @@ static esp_err_t rmt_del_led_strip_encoder(rmt_encoder_t *encoder)
     return ESP_OK;
 }
 
+// Resets the internal byte and copy encoders so the LED stream can start again cleanly.
 static esp_err_t rmt_led_strip_encoder_reset(rmt_encoder_t *encoder)
 {
     rmt_led_strip_encoder_t *led_encoder = __containerof(encoder, rmt_led_strip_encoder_t, base);
@@ -71,6 +74,7 @@ static esp_err_t rmt_led_strip_encoder_reset(rmt_encoder_t *encoder)
     return ESP_OK;
 }
 
+// Creates a new LED strip encoder configured for the target pixel timing and returns it to the caller.
 esp_err_t rmt_new_led_strip_encoder(const led_strip_encoder_config_t *config, rmt_encoder_handle_t *ret_encoder)
 {
     esp_err_t ret = ESP_OK;
